@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 const styles = require('../style/style')
 import React, { Component } from 'react';
-var Home = require('../Components/home/home')
-var Ask = require('../Components/ask/ask')
-var Notification = require('../Components/Notification/Notification')
-var Profile = require('../Components/Profile/Profile')
+var Home = require('../Components/home/')
+var Ask = require('../Components/ask/')
+var Notification = require('../Components/Notification/')
+var Profile = require('../Components/Profile/')
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 

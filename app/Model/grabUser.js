@@ -1,9 +1,8 @@
-var userRef = require('./userRef');
-var firebase =require('./firebase');
+const firebase =require('./firebase');
 
+const userRef = firebase.database().ref('users');
 
-
-var grabUser = (userId,user,cb) =>{
+export default function grabUser(userId,user,cb){
 	userRef.once('value').then((snap) =>{
 
 		if (snap.hasChild(userId)) {
@@ -18,9 +17,7 @@ var grabUser = (userId,user,cb) =>{
 			firebase.database().ref('users/' + userId).set(user);
 			cb(null,user)
 		}
-		
-	})
-	
-}
 
-module.exports = grabUser;
+	})
+
+}

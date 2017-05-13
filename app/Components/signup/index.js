@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Container, Content, Item, Input, Button, InputGroup, Icon,  Text , Spinner } from 'native-base';
-import {View, Alert,TouchableWithoutFeedback} from 'react-native';
+import {View, Alert} from 'react-native';
 
 import * as userActions from "../../actions/user";
 import styles from './styles';
@@ -52,26 +52,39 @@ class Login extends Component {
     })
 
   }
-
-  signUp = () => {
-    this.props.navigation.navigate('Signup');
-  }
-
-
   render() {
 
     return (
       <Container>
         <View style={styles.container}>
           <Image source={background} style={styles.shadow}/>
+
+          <View style={styles.inputGroup}>
+            <InputGroup borderType="underline" >
+              <Icon active name="ios-person" />
+              <Input placeholder="NAME" onChangeText={name => this.setState({ name })} />
+            </InputGroup>
+          </View>
+
+
+            <View style={styles.inputGroup}>
+              <InputGroup borderType="underline" >
+                <Icon active name="ios-person" />
+                <Input placeholder="Faculty" onChangeText={name => this.setState({ name })} />
+              </InputGroup>
+            </View>
+
+
+
           <View style={styles.inputGroup}>
             <InputGroup borderType="underline" >
               <Icon active name="ios-person" />
               <Input placeholder="EMAIL" onChangeText={name => this.setState({ name })} />
             </InputGroup>
           </View>
+
           <View style={styles.inputGroup}>
-            <InputGroup borderType="underline" success >
+            <InputGroup borderType="underline" >
               <Icon name="ios-unlock" />
               <Input
                 placeholder="PASSWORD"
@@ -86,13 +99,6 @@ class Login extends Component {
           <Button style={styles.btn} onPress={() => this.login(this.state.name,this.state.password)}>
             {this.state.isLoading ? <Spinner/> :<Text>Login</Text>}
           </Button>
-          <View style={styles.signUp}>
-            <TouchableWithoutFeedback onPress={() => {this.signUp()}}>
-              <Text style={styles.signUpText}> or Sign Up</Text>
-            </TouchableWithoutFeedback>
-
-
-          </View>
 
         </View>
 

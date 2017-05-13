@@ -2,10 +2,12 @@ import * as firebase from 'firebase';
 
 // Initialize Firebase
 const firebaseConfig = {
-  	apiKey: "AIzaSyBNo2gWh6T5JMj2MqolhDrzX6of2E_ZwzM",
-    authDomain: "nextmatch-8597c.firebaseapp.com",
-    databaseURL: "https://nextmatch-8597c.firebaseio.com",
-    storageBucket: "nextmatch-8597c.appspot.com"
+  apiKey: "AIzaSyCFNduuT75APAQc-O3bxrY9LrN-CpP9HVc",
+  authDomain: "mvpapp-1ba71.firebaseapp.com",
+  databaseURL: "https://mvpapp-1ba71.firebaseio.com",
+  projectId: "mvpapp-1ba71",
+  storageBucket: "mvpapp-1ba71.appspot.com",
+  messagingSenderId: "1081716234358"
 };
 
 
