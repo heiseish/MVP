@@ -10,9 +10,9 @@
 
 ## User Interface
 
-[Imgur](http://i.imgur.com/162JH3w.png)
+[![Imgur](http://i.imgur.com/162JH3w.png)](https://www.google.com)
 
-[Imgur](http://i.imgur.com/ZksqIC8.png)
+[![Imgur](http://i.imgur.com/ZksqIC8.png)](https://www.google.com)
 
 ## Features implemented (checklist)
 - [x] redux (nav and user)
