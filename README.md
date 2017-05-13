@@ -8,11 +8,11 @@
 
 :large_orange_diamond:Nus Students and maybe others.
 
-## Userinterface
+## User Interface
 
-[![Like us](http://leoraw.com/zib/wp-content/uploads/2010/08/like_fb.gif)]
+[Imgur](http://i.imgur.com/162JH3w.png)
 
-[![Like us](http://leoraw.com/zib/wp-content/uploads/2010/08/like_fb.gif)]
+[Imgur](http://i.imgur.com/ZksqIC8.png)
 
 ## Features implemented (checklist)
 - [x] redux (nav and user)
