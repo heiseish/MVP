@@ -71,7 +71,7 @@ class Login extends Component {
             </InputGroup>
           </View>
           <View style={styles.inputGroup}>
-            <InputGroup borderType="underline" success >
+            <InputGroup borderType="underline" >
               <Icon name="ios-unlock" />
               <Input
                 placeholder="PASSWORD"

@@ -22,7 +22,9 @@ class Login extends Component {
     this.state = {
       name: '',
       password: '',
-      isLoading: false
+      isLoading: false,
+      isSuccessEmail : true,
+      isSuccessPassword: true,
     };
   }
   login = (name,pw) => {
@@ -60,8 +62,8 @@ class Login extends Component {
           <Image source={background} style={styles.shadow}/>
 
           <View style={styles.inputGroup}>
-            <InputGroup borderType="underline" >
-              <Icon active name="ios-person" />
+            <InputGroup borderType="underline"  >
+              <Icon active name="ios-person-outline" />
               <Input placeholder="NAME" onChangeText={name => this.setState({ name })} />
             </InputGroup>
           </View>
@@ -69,23 +71,29 @@ class Login extends Component {
 
             <View style={styles.inputGroup}>
               <InputGroup borderType="underline" >
-                <Icon active name="ios-person" />
-                <Input placeholder="Faculty" onChangeText={name => this.setState({ name })} />
+                <Icon active name="ios-home-outline" />
+                <Input placeholder="FACULTY" onChangeText={name => this.setState({ name })} />
               </InputGroup>
             </View>
 
 
 
           <View style={styles.inputGroup}>
-            <InputGroup borderType="underline" >
-              <Icon active name="ios-person" />
+            <InputGroup
+              borderType="underline"
+              success={this.state.isSuccessEmail}
+              error={this.state.isErrorEmail}>
+              <Icon active name="ios-mail-outline" />
               <Input placeholder="EMAIL" onChangeText={name => this.setState({ name })} />
             </InputGroup>
           </View>
 
           <View style={styles.inputGroup}>
-            <InputGroup borderType="underline" >
-              <Icon name="ios-unlock" />
+            <InputGroup
+              borderType="underline"
+              success={this.state.isSuccessPassword}
+              error={this.state.isErrorPassword} >
+              <Icon name="ios-unlock-outline" />
               <Input
                 placeholder="PASSWORD"
                 secureTextEntry
@@ -97,7 +105,7 @@ class Login extends Component {
 
 
           <Button style={styles.btn} onPress={() => this.login(this.state.name,this.state.password)}>
-            {this.state.isLoading ? <Spinner/> :<Text>Login</Text>}
+            {this.state.isLoading ? <Spinner/> :<Text>Sign me Up</Text>}
           </Button>
 
         </View>
