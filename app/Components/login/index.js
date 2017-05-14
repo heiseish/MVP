@@ -7,7 +7,7 @@ import {View, Alert,TouchableWithoutFeedback} from 'react-native';
 
 import * as userActions from "../../actions/user";
 import styles from './styles';
-import signIn from '../../Model/SignIn';
+import signIn from '../../Model/query/SignIn';
 
 
 const background = require('../../../imgBackground/NUS.jpg');
@@ -78,6 +78,7 @@ class Login extends Component {
                 secureTextEntry
                 onChangeText={password => this.setState({ password })}
               />
+              
 
             </InputGroup>
           </View>

@@ -7,7 +7,6 @@ import {View, Alert} from 'react-native';
 
 import * as userActions from "../../actions/user";
 import styles from './styles';
-import signIn from '../../Model/SignIn';
 
 
 const background = require('../../../imgBackground/NUS.jpg');
@@ -21,10 +20,13 @@ class Login extends Component {
     super(props);
     this.state = {
       name: '',
+      faculty: '',
+      email: '',
       password: '',
-      isLoading: false,
-      isSuccessEmail : true,
-      isSuccessPassword: true,
+      emailStatus: 'error',
+      passwordStatus : '',
+      emailWarningMessage: 'Invalid',
+      passwordWarningMessage: ''
     };
   }
   login = (name,pw) => {
@@ -54,6 +56,11 @@ class Login extends Component {
     })
 
   }
+  renderEmail(email){
+
+  }
+
+
   render() {
 
     return (
@@ -64,58 +71,81 @@ class Login extends Component {
           <View style={styles.inputGroup}>
             <InputGroup borderType="underline"  >
               <Icon active name="ios-person-outline" />
-              <Input placeholder="NAME" onChangeText={name => this.setState({ name })} />
-            </InputGroup>
-          </View>
+              <Input
+                placeholder="NAME"
+                nChangeText={name => this.setState({ name })} />
+
+              </InputGroup>
+            </View>
+            <View style={styles.filler}/>
 
 
             <View style={styles.inputGroup}>
               <InputGroup borderType="underline" >
                 <Icon active name="ios-home-outline" />
-                <Input placeholder="FACULTY" onChangeText={name => this.setState({ name })} />
+                <Input placeholder="FACULTY" onChangeText={faculty => this.setState({ faculty })} />
               </InputGroup>
             </View>
+            <View style={styles.filler}/>
 
 
+            <View style={styles.inputGroup}>
+              <InputGroup
+                borderType="underline"
+                success={this.state.emailStatus === 'sucess'}
+                error={this.state.emailStatus === 'error'}>
+                <Icon active name="ios-mail-outline" />
+                <Input
+                  placeholder="EMAIL"
+                  onChangeText={email => this.setState({ email })}
+                  keyboardType='email-address'
+                  onEndEditing={email => this.renderEmail(email)}/>
+                  <Icon
+                    name={this.state.emailStatus === 'sucess' ? 'ios-checkmark-circle' : 'ios-close-circle'}
+                    style={ this.state.emailStatus === 'success' ? styles.btnsuccess :
+                    this.state.emailStatus === 'error' ? styles.btnerror : styles.btninactive} />
+                  </InputGroup>
+                </View>
 
-          <View style={styles.inputGroup}>
-            <InputGroup
-              borderType="underline"
-              success={this.state.isSuccessEmail}
-              error={this.state.isErrorEmail}>
-              <Icon active name="ios-mail-outline" />
-              <Input placeholder="EMAIL" onChangeText={name => this.setState({ name })} />
-            </InputGroup>
-          </View>
+                {this.state.emailStatus === 'error' ? <View style={styles.filler}>
+                  <Text style={styles.warningMessage}>{this.state.emailWarningMessage}
+                  </Text>
+                </View> :
+                <View style={styles.filler}/>}
 
-          <View style={styles.inputGroup}>
-            <InputGroup
-              borderType="underline"
-              success={this.state.isSuccessPassword}
-              error={this.state.isErrorPassword} >
-              <Icon name="ios-unlock-outline" />
-              <Input
-                placeholder="PASSWORD"
-                secureTextEntry
-                onChangeText={password => this.setState({ password })}
-              />
+                <View style={styles.inputGroup}>
+                  <InputGroup
+                    borderType="underline"
+                    success={this.state.passwordStatus === 'sucess'}
+                    error={this.state.passwordStatus === 'error'} >
+                    <Icon name="ios-unlock-outline" />
+                    <Input
+                      placeholder="PASSWORD"
+                      secureTextEntry
+                      onChangeText={password => this.setState({ password })}
+                      onEndEditing={password => this.renderEmail(password)}
+                    />
+                    <Icon
+                      name={this.state.passwordStatus === 'sucess' ? 'ios-checkmark-circle' : 'ios-close-circle'}
+                      style={ this.state.passwordStatus === 'success' ? styles.btnsuccess :
+                      this.state.passwordStatus === 'error' ? styles.btnerror : styles.btninactive} />
 
-            </InputGroup>
-          </View>
+                    </InputGroup>
+                  </View>
+                  <View style={styles.filler}/>
 
+                  <Button style={styles.btn} onPress={() => this.login(this.state.name,this.state.password)}>
+                    {this.state.isLoading ? <Spinner/> :<Text>Sign me Up</Text>}
+                  </Button>
 
-          <Button style={styles.btn} onPress={() => this.login(this.state.name,this.state.password)}>
-            {this.state.isLoading ? <Spinner/> :<Text>Sign me Up</Text>}
-          </Button>
+                </View>
 
-        </View>
+              </Container>
+            );
+          }
+        }
+        Login.contextTypes = {
+          store:React.PropTypes.object
+        }
 
-      </Container>
-    );
-  }
-}
-Login.contextTypes = {
-  store:React.PropTypes.object
-}
-
-export default connect()(Login);
+        export default connect()(Login);

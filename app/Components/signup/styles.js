@@ -59,5 +59,23 @@ export default {
   },
   signUpText :{
     color: 'rgb(59,89,152)'
+  },
+  filler :{
+    width: width,
+    height: 10,
+  },
+  btnsuccess: {
+    color:'green',
+  },
+  btnerror: {
+    color: 'red',
+  },
+  btninactive: {
+    color: 'transparent',
+  },
+  warningMessage : {
+    font: 5,
+    color: 'red',
+    left: 300
   }
 };

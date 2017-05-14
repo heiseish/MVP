@@ -1,4 +1,4 @@
-var firebase = require('./firebase');
+var firebase = require('../firebase');
 
 export default function signIn (email,password){
 		return new Promise( function(response,reject){
