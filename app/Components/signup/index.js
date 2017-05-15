@@ -2,16 +2,16 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { connect } from 'react-redux';
-import { Container, Content, Item, Input, Button, InputGroup, Icon,  Text , Spinner } from 'native-base';
+import { Container, Content, Item, Input,Toast, Button, InputGroup, Icon,  Text , Spinner } from 'native-base';
 import {View, Alert} from 'react-native';
-
+import {checkEmail , checkPassword} from './utility';
 import * as userActions from "../../actions/user";
 import styles from './styles';
 
 
 const background = require('../../../imgBackground/NUS.jpg');
 
-class Login extends Component {
+class SignUp extends Component {
 
   static propTypes = {
     setUser: React.PropTypes.func,
@@ -23,43 +23,62 @@ class Login extends Component {
       faculty: '',
       email: '',
       password: '',
-      emailStatus: 'error',
+      emailStatus: '',
       passwordStatus : '',
-      emailWarningMessage: 'Invalid',
-      passwordWarningMessage: ''
+      emailWarningMessage: '',
+      passwordWarningMessage: '',
+      isRendering: false
     };
   }
-  login = (name,pw) => {
+
+  renderEmail = (email) => {
+    this.setState({isRendering: true})
+    let err = checkEmail(email);
+
+    if (err  === null)
     this.setState({
-      isLoading: true
+      isRendering: false,
+      emailStatus: 'success',
+    })
+    else
+    this.setState({
+      isRendering: false,
+      emailStatus: 'error',
+      emailWarningMessage: err
     })
 
-    signIn(name,pw).then(res => {
-      this.setState({
-        isLoading: false
-      })
-      const {store} = this.context;
-      const state = store.getState();
 
-      const navigate = this.props.navigation.navigate;
+  }
+  renderPassword = (pw) => {
+    this.setState({isRendering: true})
+    let err = checkPassword(pw);
 
-      store.dispatch({
-        type: 'SET_USER',
-        payload: name
-      });
-      navigate('Main');
-    }).catch(() => {
-      this.setState({
-        isLoading: false
-      })
-      Alert.alert('Error. Cannot find user');
+    if (err  === null)
+    this.setState({
+      isRendering: false,
+      passwordStatus: 'success',
+    })
+    else
+    this.setState({
+      isRendering: false,
+      passwordStatus: 'error',
+      passwordWarningMessage: err
     })
 
-  }
-  renderEmail(email){
 
   }
 
+  signUp = (name,faculty, email, pw) => {
+    if (this.state.isRendering)
+      Toast.show({
+              text: 'Please wait!',
+              position: 'bottom',
+              buttonText: 'Okay',
+            })
+    this.props.navigation.navigate('Main');
+
+
+  }
 
   render() {
 
@@ -92,16 +111,16 @@ class Login extends Component {
             <View style={styles.inputGroup}>
               <InputGroup
                 borderType="underline"
-                success={this.state.emailStatus === 'sucess'}
+                success={this.state.emailStatus === 'success'}
                 error={this.state.emailStatus === 'error'}>
                 <Icon active name="ios-mail-outline" />
                 <Input
                   placeholder="EMAIL"
                   onChangeText={email => this.setState({ email })}
                   keyboardType='email-address'
-                  onEndEditing={email => this.renderEmail(email)}/>
+                  onEndEditing={(e) =>  this.renderEmail(e.nativeEvent.text)}/>
                   <Icon
-                    name={this.state.emailStatus === 'sucess' ? 'ios-checkmark-circle' : 'ios-close-circle'}
+                    name={this.state.emailStatus === 'success' ? 'ios-checkmark-circle' : 'ios-close-circle'}
                     style={ this.state.emailStatus === 'success' ? styles.btnsuccess :
                     this.state.emailStatus === 'error' ? styles.btnerror : styles.btninactive} />
                   </InputGroup>
@@ -116,36 +135,43 @@ class Login extends Component {
                 <View style={styles.inputGroup}>
                   <InputGroup
                     borderType="underline"
-                    success={this.state.passwordStatus === 'sucess'}
+                    success={this.state.passwordStatus === 'success'}
                     error={this.state.passwordStatus === 'error'} >
                     <Icon name="ios-unlock-outline" />
                     <Input
                       placeholder="PASSWORD"
                       secureTextEntry
                       onChangeText={password => this.setState({ password })}
-                      onEndEditing={password => this.renderEmail(password)}
-                    />
+                      onEndEditing={(e) =>  this.renderPassword(e.nativeEvent.text)}/>
                     <Icon
-                      name={this.state.passwordStatus === 'sucess' ? 'ios-checkmark-circle' : 'ios-close-circle'}
+                      name={this.state.passwordStatus === 'success' ? 'ios-checkmark-circle' : 'ios-close-circle'}
                       style={ this.state.passwordStatus === 'success' ? styles.btnsuccess :
                       this.state.passwordStatus === 'error' ? styles.btnerror : styles.btninactive} />
 
                     </InputGroup>
                   </View>
-                  <View style={styles.filler}/>
+                  {this.state.passwordStatus === 'error' ? <View style={styles.filler}>
+                    <Text style={styles.warningMessage}>{this.state.passwordWarningMessage}</Text>
+                  </View> :
+                  <View style={styles.filler}/>}
 
-                  <Button style={styles.btn} onPress={() => this.login(this.state.name,this.state.password)}>
-                    {this.state.isLoading ? <Spinner/> :<Text>Sign me Up</Text>}
+
+                  <Button style={styles.btn} onPress={() => this.signUp(
+                    this.state.name,
+                    this.state.faculty,
+                    this.state.email,
+                    this.state.password)}>
+                    {this.state.isRendering ? <Spinner/> :<Text>Sign Up</Text>}
                   </Button>
 
-                </View>
+              </View>
 
-              </Container>
-            );
-          }
-        }
-        Login.contextTypes = {
-          store:React.PropTypes.object
-        }
+            </Container>
+        );
+    }
+}
+SignUp.contextTypes = {
+    store:React.PropTypes.object
+}
 
-        export default connect()(Login);
+export default connect()(SignUp);

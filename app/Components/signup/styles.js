@@ -48,7 +48,9 @@ export default {
     marginTop: 20,
     alignSelf: 'center',
     width: 100,
-    backgroundColor: 'rgb(59,89,152)'
+    backgroundColor: 'rgb(59,89,152)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   signUp: {
     width: width,
@@ -62,7 +64,9 @@ export default {
   },
   filler :{
     width: width,
-    height: 10,
+    height: 8,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
   btnsuccess: {
     color:'green',
@@ -74,8 +78,8 @@ export default {
     color: 'transparent',
   },
   warningMessage : {
-    font: 5,
+    fontSize: 12,
+    top: 8,
     color: 'red',
-    left: 300
   }
 };
